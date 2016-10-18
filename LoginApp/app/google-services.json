@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1097494044755",
+    "project_id": "loginproject-141014"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097494044755:android:57266d1695797fa1",
+        "android_client_info": {
+          "package_name": "com.accolite.loginapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097494044755-kvq67s9jf6v7s4tvfverpg1bjnfe7vm6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.accolite.loginapp",
+            "certificate_hash": "35DD372C50F07798CFEDFA777C6F90FE593B8FC1"
+          }
+        },
+        {
+          "client_id": "1097494044755-fkd58ajeadf64liffprlsslhv1af6bhl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJNkhurP2mfAybqi0c8g_Q-_aX8U13IPI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

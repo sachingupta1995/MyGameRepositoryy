@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.accolite.loginapp">
+
+    <application
+        android:name="android.support.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+        <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+        <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+        <!-- android:configChanges="orientation|screenSize" -->
+        <activity
+            android:name="com.accolite.loginapp.MainActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name=".WelcomeActivity" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".WelcomeActivity1" />
+        <activity android:name=".WelcomeActivity2" />
+        <activity android:name=".InviteActivity" />
+        <activity android:name=".PendingRequestsActivity" />
+        <activity android:name=".PendingChallengesActivity"/>
+        <activity android:name=".ChallengeFriendActivity"/>
+        <activity android:name="multiplayerdemo.PlayAfterChallengingActivity"/>
+        <activity android:name="multiplayerdemo.PlayAfterAcceptingChallengingActivity"/>
+        <activity android:name="multiplayerdemo.PlayAloneAfterAcceptingChallengingActivity"/>
+
+
+        <supports-screens
+            android:anyDensity="true"
+            android:largeScreens="true"
+            android:normalScreens="true"
+            android:smallScreens="true"
+            android:xlargeScreens="true" />
+
+        <activity
+            android:name="com.accolite.loginapp.SearchActivity"
+            android:launchMode="singleTop"
+            android:label="@string/title_activity_search"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+
+
+        <activity
+            android:name="multiplayerdemo.PlayOptionsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
+        </activity>
+        <activity
+            android:name="multiplayerdemo.RoomListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name="multiplayerdemo.GameActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+        <activity android:name="multiplayerdemo.GameActivityRandom"></activity>
+
+
+
+        <provider
+            android:name=".UserSuggestionProvider"
+            android:authorities="ngvl.android.demosearch.citysuggestion"
+            android:enabled="true"
+            android:exported="true"/>
+    </application>
+
+</manifest>

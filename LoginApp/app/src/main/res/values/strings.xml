@@ -1,0 +1,27 @@
+<resources>
+    <string name="facebook_app_id">670192973127888</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="select_gender">Choose gender</string>
+    <string name="database_name">LoginDatabase</string>
+    <string name="table_name">DemoTable</string>
+    <string name="dobHint">dd/mm/yyyy</string>
+    <string name="data_obtained">dataObtained</string>
+    <!--<string name="server_url">http://10.10.10.217:8080/api/users</string>-->
+    <string name="hello">Hello World, AndEngineTutorialActivity!</string>
+    <string name="app_name">Multiplayer Demo</string>
+    <string name="playGame">Play Game</string>
+    <string name="chooseMonster">Choose Monster</string>
+    <string name="alertSelect">Please select monster to start game</string>
+    <string name="enterName">Enter Your Name</string>
+    <string name="joinRoom">Join Room</string>
+    <string name="server_url">http://23.22.96.227/api/quiz</string>
+    <string name="server_url1">http://23.22.96.227/api/users</string>
+
+
+    <string-array name="gender_arrays">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="title_activity_search">Search by Email,Name</string>
+</resources>
