@@ -291,11 +291,16 @@ public class PlayOptionsActivity extends Activity implements ConnectionRequestLi
                 theClient.createRoom("" + System.currentTimeMillis(), "Saurav", 4, properties);
 
             }
-        } else if (randomGameClicked == 1) {
-            HashMap<String, Object> properties = new HashMap<String, Object>();
-            properties.put("game", "random");
-            theClient.getRoomWithProperties(properties);
-            theClient.getRoomInRange(1, 1);
+            else if (randomGameClicked == 1) {
+                HashMap<String, Object> properties = new HashMap<String, Object>();
+                properties.put("game", "random");
+                theClient.getRoomWithProperties(properties);
+                theClient.getRoomInRange(1, 1);
+
+            }
+        }
+        else
+        {
             isConnected = false;
             Utils.showToastOnUIThread(PlayOptionsActivity.this, "connection failed");
         }
