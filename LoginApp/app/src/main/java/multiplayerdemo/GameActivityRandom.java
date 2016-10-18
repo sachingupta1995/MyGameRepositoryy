@@ -58,7 +58,7 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
     int mSecondsLeft = -1;
     private static String opponentName;
     private static Integer opponentScore = 0;
-
+    private String myName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +80,7 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
         StrictMode.setThreadPolicy(policy);
         Intent intent = getIntent();
         roomId = intent.getStringExtra("roomId");
+        myName=intent.getStringExtra("myName");
         init(roomId);
         try {
             listQuestions = RetrievingData.makeGetRequest(getResources().getString(R.string.server_url) + "/1");
@@ -279,6 +280,7 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
         try {
 
             object.put("score", "" + mScore);
+            object.put("senderName",myName);
             Log.d("TheValue", object.toString());
             theClient.sendChat(object.toString());//Sending Chat to Opponent in Json Form
             ((TextView) findViewById(R.id.my_score)).setText(formatScore(mScore) + " - Me");
@@ -327,7 +329,7 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
     @Override
     public void onChatReceived(ChatEvent event) {
         String sender = event.getSender();
-        if (sender.equals(Utils.userName) == false) {// if not same user
+        if (sender.equals(myName) == false) {// if not same user
             String message = event.getMessage();
             try {
                 JSONObject object = new JSONObject(message);
@@ -445,6 +447,7 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
                     ((TextView) findViewById(R.id.opponent_score)).setText(formatScore(opponentScore) + " -" + opponentName);
                     JSONObject object1=new JSONObject();
                     try {
+                        object1.put("senderName",opponentName);
                         object1.put("score", "" + mScore);
                     } catch (JSONException e) {
                         e.printStackTrace();

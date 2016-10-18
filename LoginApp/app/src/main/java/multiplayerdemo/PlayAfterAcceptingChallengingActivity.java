@@ -19,10 +19,14 @@ import com.accolite.loginapp.R;
 import com.accolite.loginapp.UtilClass;
 import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
 import com.shephertz.app42.gaming.multiplayer.client.command.WarpResponseResultCode;
+import com.shephertz.app42.gaming.multiplayer.client.events.AllRoomsEvent;
+import com.shephertz.app42.gaming.multiplayer.client.events.AllUsersEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.ChatEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.ConnectEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.LiveRoomInfoEvent;
+import com.shephertz.app42.gaming.multiplayer.client.events.LiveUserInfoEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.LobbyData;
+import com.shephertz.app42.gaming.multiplayer.client.events.MatchedRoomsEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.MoveEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomData;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomEvent;
@@ -30,6 +34,7 @@ import com.shephertz.app42.gaming.multiplayer.client.events.UpdateEvent;
 import com.shephertz.app42.gaming.multiplayer.client.listener.ConnectionRequestListener;
 import com.shephertz.app42.gaming.multiplayer.client.listener.NotifyListener;
 import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener;
+import com.shephertz.app42.gaming.multiplayer.client.listener.ZoneRequestListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,10 +42,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import model.ResponseClass;
 
-public class PlayAfterAcceptingChallengingActivity extends Activity implements ConnectionRequestListener, RoomRequestListener, NotifyListener {
+public class PlayAfterAcceptingChallengingActivity extends Activity implements ConnectionRequestListener, RoomRequestListener, NotifyListener ,ZoneRequestListener{
 
 
     private String getJsonFormat;
@@ -95,6 +101,11 @@ public class PlayAfterAcceptingChallengingActivity extends Activity implements C
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            theClient.addConnectionRequestListener(this);
+            theClient.addZoneRequestListener(this);
+            Random r=new Random();
+            int n=r.nextInt(1000)+1;
+            theClient.connectWithUserName("Sachin"+n);
         }
         opponent = (TextView) findViewById(R.id.opponent_score);
         moveToNextQuestion = (Button) findViewById(R.id.next_question);
@@ -123,6 +134,12 @@ public class PlayAfterAcceptingChallengingActivity extends Activity implements C
                     Toast.makeText(getApplicationContext(), "Select one option!!", Toast.LENGTH_LONG).show();
                 } else {
                     secondsLeft = mSecondsLeft;
+                    if ((acceptChallengeData.quizObject.getQuestions().get(questionId).getTime() - mSecondsLeft) < acceptChallengeData.gameDetailsObject.get(questionId).getTimeTakenToAnswer())
+                    {
+                        int oppScore = opponentScore + acceptChallengeData.gameDetailsObject.get(questionId).getScore();
+                        ((TextView) findViewById(R.id.opponent_score)).setText(formatScore(oppScore) + " -" + opponentName);
+                    }
+
                     if (questionId < acceptChallengeData.quizObject.getQuestions().size() - 1) {
 //                    mSecondsLeft=GAME_DURATION;
 
@@ -717,10 +734,11 @@ public class PlayAfterAcceptingChallengingActivity extends Activity implements C
     //When user joins the room
     @Override
     public void onJoinRoomDone(RoomEvent event) {
+
         if (event.getResult() == WarpResponseResultCode.SUCCESS) {
             //It is called when user itself joins the room
             theClient.subscribeRoom(roomId);
-        } else {
+        } else if(event.getResult()==WarpResponseResultCode.CONNECTION_ERROR){
             Utils.showToastOnUIThread(this, "onJoinRoomDone: Failed " + event.getResult() + " " + event.toString());
         }
     }
@@ -831,4 +849,48 @@ public class PlayAfterAcceptingChallengingActivity extends Activity implements C
     }
 
 
+    @Override
+    public void onDeleteRoomDone(RoomEvent roomEvent) {
+
+    }
+
+    @Override
+    public void onGetAllRoomsDone(AllRoomsEvent allRoomsEvent) {
+
+    }
+
+    @Override
+    public void onCreateRoomDone(RoomEvent roomEvent) {
+
+    }
+
+    @Override
+    public void onGetOnlineUsersDone(AllUsersEvent allUsersEvent) {
+
+    }
+
+    @Override
+    public void onGetLiveUserInfoDone(LiveUserInfoEvent liveUserInfoEvent) {
+
+    }
+
+    @Override
+    public void onSetCustomUserDataDone(LiveUserInfoEvent liveUserInfoEvent) {
+
+    }
+
+    @Override
+    public void onGetMatchedRoomsDone(MatchedRoomsEvent matchedRoomsEvent) {
+
+    }
+
+    @Override
+    public void onGetRoomsCountDone(RoomEvent roomEvent) {
+
+    }
+
+    @Override
+    public void onGetUsersCountDone(AllUsersEvent allUsersEvent) {
+
+    }
 }

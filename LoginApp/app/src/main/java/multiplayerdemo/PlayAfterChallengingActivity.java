@@ -59,7 +59,6 @@ public class PlayAfterChallengingActivity extends Activity implements Connection
     int mSecondsLeft = -1;
     private static String opponentName;
     private static Integer opponentScore = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

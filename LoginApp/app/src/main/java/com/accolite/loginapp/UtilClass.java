@@ -21,8 +21,8 @@ public class UtilClass {
     public static int connectionFlag = 0;
     public static ArrayList<ApiDatabase.ApiClass> registeredUsers;
     public static String userId;
-    public static String serverlUrl="http://52.45.207.23/api/users";
-    public static String acceptChallengeUrl="http://52.45.207.23/api/quiz/acceptChallenge";
+    public static String serverlUrl="http://23.22.96.227/api/users";
+    public static String acceptChallengeUrl="http://23.22.96.227/api/quiz/acceptChallenge";
     /*
     public static HttpResponse postRequest(String userFirstName, String userLastName, String userAddress, String userPhone, String userEmail, String userPassword) {
 
