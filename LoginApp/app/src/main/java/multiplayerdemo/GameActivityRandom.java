@@ -447,7 +447,7 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
                     ((TextView) findViewById(R.id.opponent_score)).setText(formatScore(opponentScore) + " -" + opponentName);
                     JSONObject object1=new JSONObject();
                     try {
-                        object1.put("senderName",opponentName);
+                        object1.put("senderName",myName);
                         object1.put("score", "" + mScore);
                     } catch (JSONException e) {
                         e.printStackTrace();
