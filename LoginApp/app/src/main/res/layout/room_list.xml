@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@drawable/bg_repeat"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/stripe">
 
     <Button
         android:layout_width="wrap_content"

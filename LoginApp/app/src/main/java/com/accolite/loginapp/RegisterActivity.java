@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity{
 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     Button registerButton;//, setDob;
-    EditText email, password, confirm_password, profession, education, dateOfBirth,first_name,last_name;
+    EditText email, password, confirm_password, profession, phoneNumber, dateOfBirth,first_name,last_name;
     String emailId, password1, password2, gen, prof, edu, dob,firstName,lastName;
     Spinner gender;
     int validDate;
@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity{
         gender = (Spinner) findViewById(R.id.gender);
         profession = (EditText) findViewById(R.id.profession);
         dateOfBirth = (EditText) findViewById(R.id.dateOfBirth);
-        education = (EditText) findViewById(R.id.education);
+        phoneNumber = (EditText) findViewById(R.id.phone_number);
         first_name=(EditText)findViewById(R.id.first_name);
         last_name=(EditText)findViewById(R.id.last_name);
         Log.d("Inside","Regsiter");
@@ -116,80 +116,84 @@ public class RegisterActivity extends AppCompatActivity{
                 password2 = confirm_password.getText().toString();
                 gen = String.valueOf(gender.getSelectedItem());
                 prof = profession.getText().toString();
-                edu = education.getText().toString();
+                edu = phoneNumber.getText().toString();
                 dob = dateOfBirth.getText().toString();
-                firstName=first_name.getText().toString();
-                lastName=last_name.getText().toString();
+                firstName = first_name.getText().toString();
+                lastName = last_name.getText().toString();
                 validDate = 0;
                 try {
                     format.setLenient(false);
                     format.parse(dob);
                     validDate = 1;
                 } catch (ParseException e) {
-                    validDate=0;
+                    validDate = 0;
                 }
-                Log.d("Date is ",dob);
+                Log.d("Date is ", dob);
+
                 if (emailId.matches(emailPattern)) {
                     if (validDate == 1) {
-                        if (password1.length() >= 8) {
-                            if (password1.equals(password2)) {
+                        if(phoneNumber.length()==10) {
+                            if (password1.length() >= 8) {
+                                if (password1.equals(password2)) {
 
-                                //Making Post Request
-                                Random r=new Random();
-                                String phoneNum="6666698991";
+                                    //Making Post Request
+                                    Random r = new Random();
+                                    String phoneNum = "6666698991";
 
-                                ArrayList<String> dataTobePassed = new ArrayList<String>();
-                                String jsonFormat=UtilClass.createJson(firstName,lastName,prof,edu,emailId,password1);
-                                try {
-                                    dataTobePassed=UtilClass.makePostRequest(getResources().getString(R.string.server_url1),jsonFormat);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                Log.d("DataTobePassed","Data is "+dataTobePassed);
+                                    ArrayList<String> dataTobePassed = new ArrayList<String>();
+                                    String jsonFormat = UtilClass.createJson(firstName, lastName, prof, edu, emailId, password1);
+                                    try {
+                                        dataTobePassed = UtilClass.makePostRequest(getResources().getString(R.string.server_url1), jsonFormat);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.d("DataTobePassed", "Data is " + dataTobePassed);
 
-                                mydatabase.execSQL("INSERT INTO "+nameofTable+" VALUES('" + emailId + "','" + password1 + "','"+firstName+"','" + lastName +"','" + gen +"','" + dob +"','" + prof +"','" + edu +"');");
-                                if (dataTobePassed.size() == 1) {
-                                    Toast.makeText(getApplicationContext(), "Server Not found", Toast.LENGTH_LONG).show();
-                                    Intent i=new Intent(getApplicationContext(),MainActivity.class);
-                                    finish();
-                                    startActivity(i);
+                                    mydatabase.execSQL("INSERT INTO " + nameofTable + " VALUES('" + emailId + "','" + password1 + "','" + firstName + "','" + lastName + "','" + gen + "','" + dob + "','" + prof + "','" + edu + "');");
+                                    if (dataTobePassed.size() == 1) {
+                                        Toast.makeText(getApplicationContext(), "Server Not found", Toast.LENGTH_LONG).show();
+                                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                        finish();
+                                        startActivity(i);
 
-                                } else
-                                {
-                                    Utils.userName=firstName+lastName;
-                                    Intent i=new Intent(getApplicationContext(),MainActivity.class);
+                                    } else {
+                                        Utils.userName = firstName + lastName;
+                                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
 //                                    i.putExtra(getResources().getString(R.string.data_obtained), dataTobePassed);
-                                    finish();
-                                    startActivity(i);
+                                        finish();
+                                        startActivity(i);
 
+                                    }
+
+                                } else {
+                                    confirm_password.setSelectAllOnFocus(true);
+                                    Toast.makeText(getApplicationContext(), "Passwords don't match ", Toast.LENGTH_SHORT).show();
+                                    confirm_password.setText("");
                                 }
-
-                            }
-                            else
-                            {
-                                confirm_password.setSelectAllOnFocus(true);
-                                Toast.makeText(getApplicationContext(), "Passwords don't match ", Toast.LENGTH_SHORT).show();
+                            } else {
+                                password.setSelectAllOnFocus(true);
+                                Toast.makeText(getApplicationContext(), "Password should be of minimum 8 characters", Toast.LENGTH_SHORT).show();
+                                password.setText("");
                                 confirm_password.setText("");
                             }
-                        } else {
-                            password.setSelectAllOnFocus(true);
-                            Toast.makeText(getApplicationContext(), "Password should be of minimum 8 characters", Toast.LENGTH_SHORT).show();
-                            password.setText("");
-                            confirm_password.setText("");
                         }
-                    }
-                    else {
+                        else
+                        {
+                            phoneNumber.setSelectAllOnFocus(true);
+                            Toast.makeText(getApplicationContext(), "Enter Valid PhoneNumber", Toast.LENGTH_SHORT).show();
+                            phoneNumber.setText("");
+                        }
+                    } else {
                         dateOfBirth.setSelectAllOnFocus(true);
                         Toast.makeText(getApplicationContext(), "Enter Valid Date", Toast.LENGTH_SHORT).show();
                         dateOfBirth.setText("");
                     }
-                }
-                else
-                {
+                } else {
                     email.setSelectAllOnFocus(true);
-                    Toast.makeText(getApplicationContext(),"Enter valid Email Address",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter valid Email Address", Toast.LENGTH_SHORT).show();
                     email.setText("");
                 }
+
             }
 
         });
@@ -230,7 +234,7 @@ public class RegisterActivity extends AppCompatActivity{
                 registerButton.setPadding(registerButton.getPaddingLeft(),dimensionInDp,registerButton.getPaddingRight(),dimensionInDp);
                 registerButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30);
                 email.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-                education.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30);
+                phoneNumber.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30);
                 profession.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30);
                 confirm_password.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30);
                 first_name.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30);

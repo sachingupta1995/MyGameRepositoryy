@@ -59,6 +59,7 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
     private static String opponentName;
     private static Integer opponentScore = 0;
     private String myName;
+    private int roomCreated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,11 +82,17 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
         Intent intent = getIntent();
         roomId = intent.getStringExtra("roomId");
         myName=intent.getStringExtra("myName");
+        roomCreated=intent.getIntExtra("Created",0);
         init(roomId);
-        try {
-            listQuestions = RetrievingData.makeGetRequest(getResources().getString(R.string.server_url) + "/1");
-        } catch (IOException e) {
-            e.printStackTrace();
+
+
+        if(roomCreated==1) {
+            try {
+                String jsonFormat=buildJson();
+                listQuestions = RetrievingData.getData(getResources().getString(R.string.server_url) + "/initiateGame/level/1", jsonFormat);;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         prog= ProgressDialog.show(this,"","Please Wait");
@@ -281,6 +288,7 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
 
             object.put("score", "" + mScore);
             object.put("senderName",myName);
+            object.put("quizId",-1);
             Log.d("TheValue", object.toString());
             theClient.sendChat(object.toString());//Sending Chat to Opponent in Json Form
             ((TextView) findViewById(R.id.my_score)).setText(formatScore(mScore) + " - Me");
@@ -334,7 +342,8 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
             try {
                 JSONObject object = new JSONObject(message);
                 if (opponentName == null) {
-
+                    int quizId=object.getInt("quizId");
+                    listQuestions=RetrievingData.makeGetRequest(getResources().getString(R.string.server_url)+"/"+quizId);
                     opponentName = sender;
                     mScore = 0;
                     questionId = 0;
@@ -449,6 +458,7 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
                     try {
                         object1.put("senderName",myName);
                         object1.put("score", "" + mScore);
+                        object1.put("quizId",listQuestions.quiz.getId());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -601,4 +611,33 @@ public class GameActivityRandom extends Activity implements RoomRequestListener,
         // TODO Auto-generated method stub
 
     }
+    private String buildJson() {
+        JSONObject j = new JSONObject();
+        JSONObject j1 = new JSONObject();
+        JSONObject j3 = new JSONObject();
+        JSONObject j4 = new JSONObject();
+
+        try {
+
+
+            int userId=Integer.parseInt(myName);
+            j1.put("id",userId);
+            j.put("challenger", j1);
+            j.put("opponent", null);
+            j3.put("id", 2);//It is 2 for random type
+            j.put("challengeType", j3);
+            j.put("roomId", roomId);
+            j4.put("id", 1);
+            j.put("topic", j4);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return j.toString();
+
+    }
+
+
+
+
 }

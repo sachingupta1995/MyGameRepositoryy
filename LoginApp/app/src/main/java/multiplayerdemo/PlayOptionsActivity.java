@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.accolite.loginapp.ChallengeFriendActivity;
 import com.accolite.loginapp.PendingChallengesActivity;
 import com.accolite.loginapp.R;
+import com.accolite.loginapp.SearchActivity;
 import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
 import com.shephertz.app42.gaming.multiplayer.client.command.WarpResponseResultCode;
 import com.shephertz.app42.gaming.multiplayer.client.events.AllRoomsEvent;
@@ -46,7 +47,7 @@ public class PlayOptionsActivity extends Activity implements ConnectionRequestLi
     private int pendingChallengesClicked = 0;
     ArrayList<RoomData> roomDataArrayList;
     private String myRandomName;
-
+    int roomFound=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,7 @@ public class PlayOptionsActivity extends Activity implements ConnectionRequestLi
         pendingChallenges = (Button) findViewById(R.id.pending_challenge);
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         selectedMonster = -1;
-
+        roomFound=0;
         init();
 
         singlePlayer.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +72,9 @@ public class PlayOptionsActivity extends Activity implements ConnectionRequestLi
             public void onClick(View v) {
                 Utils.userName = nameEditText.getText().toString();
                 singleplayerClicked = true;
-                theClient.connectWithUserName(nameEditText.getText().toString());
+                Random r=new Random();
+                int n=r.nextInt(100000)+1;
+                theClient.connectWithUserName(nameEditText.getText().toString()+n);
 
             }
         });
@@ -118,6 +121,9 @@ public class PlayOptionsActivity extends Activity implements ConnectionRequestLi
         if (theClient != null && isConnected) {
             theClient.disconnect();
         }
+
+        finish();
+        startActivity(new Intent(PlayOptionsActivity.this, SearchActivity.class));
 
 
     }
@@ -194,7 +200,7 @@ public class PlayOptionsActivity extends Activity implements ConnectionRequestLi
             theClient.createRoom("" + System.currentTimeMillis(), "Sachin", 2, properties);
 
         } else {
-            int roomFound = 0;
+            roomFound = 0;
             roomsAvailable = 1;
             if (roomDataArrayList.size() > 0) {
                 for (int i = 0; i < roomDataList.length; i++) {
@@ -342,6 +348,10 @@ public class PlayOptionsActivity extends Activity implements ConnectionRequestLi
 
     private void goToRandomGameScreen(String roomId) {
         Intent intent = new Intent(this, GameActivityRandom.class);
+        if(roomFound==1)
+            intent.putExtra("Created",0);
+        else
+            intent.putExtra("Created",1);
         intent.putExtra("roomId", roomId);
         intent.putExtra("myName",myRandomName);
         finish();

@@ -4,8 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#5DBCD2"
-    android:fillViewport="false">
+    android:fillViewport="true">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -13,7 +12,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:background="#5DBCD2"
+        android:background="@drawable/bg_repeat"
         tools:context="com.accolite.loginapp.MainActivity">
 
 
@@ -160,11 +159,12 @@
 
                 <EditText
 
-                    android:id="@+id/education"
+                    android:id="@+id/phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Education"
+                    android:hint="Phone Number"
+                    android:inputType="number"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
