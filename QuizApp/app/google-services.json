@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "619037196066",
+    "project_id": "quizapp-147012"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619037196066:android:416c2920b8878cfa",
+        "android_client_info": {
+          "package_name": "com.accolite.quizapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619037196066-dbled288hqmnebpu5qaba3hl9hs5mdqu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.accolite.quizapp",
+            "certificate_hash": "35DD372C50F07798CFEDFA777C6F90FE593B8FC1"
+          }
+        },
+        {
+          "client_id": "619037196066-ogmbv7po36hcvv5gr052osm1uaumak5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkuiHQCD2O_2EGPuEcwcblfDUy4xe73sg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">QuizApp</string>
+    <string name="facebook_app_id">360212300984101</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="server_url">http://23.22.96.227/api/</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_incorrect_credentials">Invalid Login Credentials!</string>
+    <string name="error_network_issues">Network issues! Please try again after sometime.</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="data_obtained">dataObtained</string>
+    <string name="login_button">Login</string>
+    <string name="login_text">Already Training? Sign In.</string>
+    <string name="create_account">Create an account.</string>
+    <string name="google_plus_text">Sign up with Google+</string>
+    <string name="facebook_text">Signup with Facebook</string>
+    <string name="pending_requests">Pending Requests</string>
+    <string name="game_screeen_button">Game Screeen</string>
+    <string name="room_owner">Sachin</string>
+
+    <!-- PlayOptions.xml -->
+    <string name="single_player">Single Player</string>
+    <string name="random_game">Random Game</string>
+    <string name="challenge_friend">Challenge a friend</string>
+    <string name="pending_challenge">Pending Challenges</string>
+
+    <!-- GameActivtity.xml -->
+    <string name="move_to_next">Move to Next</string>
+
+
+    <!--Text Related -->
+    <string name="font_type_1">Gotham</string>
+</resources>
